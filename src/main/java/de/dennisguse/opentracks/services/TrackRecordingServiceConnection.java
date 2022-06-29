@@ -20,6 +20,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.IBinder.DeathRecipient;
 import android.os.RemoteException;
@@ -74,7 +75,11 @@ public class TrackRecordingServiceConnection implements ServiceConnection, Death
         }
 
         Log.i(TAG, "Starting the service.");
-        context.startService(new Intent(context, TrackRecordingService.class));
+        if (Build.VERSION.SDK_INT  < Build.VERSION_CODES.O) {
+            context.startService(new Intent(context, TrackRecordingService.class));
+        } else {
+            context.startForegroundService(new Intent(context, TrackRecordingService.class));
+        }
 
         startConnection(context);
     }
