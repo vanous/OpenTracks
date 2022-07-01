@@ -3,11 +3,9 @@ package de.dennisguse.opentracks.chart;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
-import de.dennisguse.opentracks.data.models.Altitude;
 import de.dennisguse.opentracks.data.models.Distance;
 import de.dennisguse.opentracks.data.models.Speed;
 import de.dennisguse.opentracks.data.models.TrackPoint;
-import de.dennisguse.opentracks.data.models.UnitConversions;
 import de.dennisguse.opentracks.settings.UnitSystem;
 import de.dennisguse.opentracks.stats.TrackStatistics;
 
@@ -42,7 +40,7 @@ public class ChartPoint {
 
         if (smoothedSpeed != null) {
             speed = smoothedSpeed.to(unitSystem);
-            pace = smoothedSpeed.toPace(unitSystem).toMillis() * UnitConversions.MS_TO_S * UnitConversions.S_TO_MIN;
+            pace = smoothedSpeed.toPace(unitSystem).toSeconds() / 60d;
         }
         if (trackPoint.hasHeartRate()) {
             heartRate = (double) trackPoint.getHeartRate().getBPM();
