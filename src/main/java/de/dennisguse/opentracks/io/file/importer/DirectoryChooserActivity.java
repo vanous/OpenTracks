@@ -17,8 +17,8 @@ import androidx.documentfile.provider.DocumentFile;
 
 import de.dennisguse.opentracks.R;
 import de.dennisguse.opentracks.io.file.exporter.ExportActivity;
-import de.dennisguse.opentracks.util.IntentUtils;
 import de.dennisguse.opentracks.settings.PreferencesUtils;
+import de.dennisguse.opentracks.util.IntentUtils;
 
 public abstract class DirectoryChooserActivity extends AppCompatActivity {
 
@@ -96,6 +96,30 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
         protected Intent createNextActivityIntent(Uri directoryUri) {
             Intent intent = IntentUtils.newIntent(this, ExportActivity.class);
             intent.putExtra(ExportActivity.EXTRA_DIRECTORY_URI_KEY, directoryUri);
+            intent.putExtra(ExportActivity.EXTRA_TRACKFILEFORMAT_KEY, PreferencesUtils.getExportTrackFileFormat());
+            return intent;
+        }
+    }
+
+    public static class ExportDirectoryChooserOneFileActivity extends DirectoryChooserActivity {
+
+        @Override
+        protected DocumentFile configureDirectoryChooserIntent(Intent intent) {
+            super.configureDirectoryChooserIntent(intent);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            return IntentUtils.toDocumentFile(this, PreferencesUtils.getDefaultExportDirectoryUri());
+        }
+
+        @Override
+        protected boolean isDirectoryValid(final DocumentFile directoryUri) {
+            return super.isDirectoryValid(directoryUri) && directoryUri.canWrite();
+        }
+
+        @Override
+        protected Intent createNextActivityIntent(Uri directoryUri) {
+            Intent intent = IntentUtils.newIntent(this, ExportActivity.class);
+            intent.putExtra(ExportActivity.EXTRA_DIRECTORY_URI_KEY, directoryUri);
+            intent.putExtra(ExportActivity.EXTRA_ONE_FILE_KEY, true);
             intent.putExtra(ExportActivity.EXTRA_TRACKFILEFORMAT_KEY, PreferencesUtils.getExportTrackFileFormat());
             return intent;
         }

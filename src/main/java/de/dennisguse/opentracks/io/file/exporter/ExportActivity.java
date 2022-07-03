@@ -53,6 +53,7 @@ public class ExportActivity extends FragmentActivity implements ExportServiceRes
     private static final String TAG = ExportActivity.class.getSimpleName();
 
     public static final String EXTRA_DIRECTORY_URI_KEY = "directory_uri";
+    public static final String EXTRA_ONE_FILE_KEY = "one_file";
     public static final String EXTRA_TRACKFILEFORMAT_KEY = "trackfileformat";
 
     private static final String BUNDLE_AUTO_CONFLICT = "auto_conflict";
@@ -139,6 +140,7 @@ public class ExportActivity extends FragmentActivity implements ExportServiceRes
 
         directoryUri = getIntent().getParcelableExtra(EXTRA_DIRECTORY_URI_KEY);
         trackFileFormat = (TrackFileFormat) getIntent().getSerializableExtra(EXTRA_TRACKFILEFORMAT_KEY);
+        boolean oneFile = getIntent().getBooleanExtra(EXTRA_ONE_FILE_KEY, false);
 
         contentProviderUtils = new ContentProviderUtils(this);
 

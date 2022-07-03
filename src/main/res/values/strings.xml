@@ -297,6 +297,7 @@ limitations under the License.
     <string name="menu_delete">Delete</string>
     <string name="menu_edit">Edit</string>
     <string name="menu_export_all">Export all</string>
+    <string name="menu_export_all_one_file">Export all (one file)</string>
     <string name="menu_help">Help</string>
     <string name="menu_import_all">Import all</string>
     <string name="menu_insert_marker">Insert marker</string>
